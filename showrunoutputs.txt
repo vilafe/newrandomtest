@@ -1,0 +1,692 @@
+[1m[36mpull_show_run*******************************************************************[0m
+[0m[1m[34m* R1 ** changed : False ********************************************************[0m
+[0m[1m[32mvvvv pull_show_run ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO[0m
+[0m[1m[32m---- send_command ** changed : False ------------------------------------------- INFO[0m
+[0mBuilding configuration...
+
+
+Current configuration : 2002 bytes
+!
+! Last configuration change at 17:26:06 UTC Fri Nov 5 2021 by usa
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$SFcu$UK8yXPnrcMnisU084YRUR/
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip domain name automation
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username usa privilege 15 secret 5 $1$cPlQ$s/X2FIXDJ0t3kLJmiw6cZ/
+username vila privilege 15 secret 5 $1$hjeQ$ZvG4iJorCBQ3c0k8vA444/
+username jradmin privilege 15 view restricted secret 5 $1$yBFi$1Sekmb4i2tLU3mb/NzMH./
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description automation
+ no ip address
+!
+interface Ethernet0/0
+ description automation
+ ip address 192.168.146.41 255.255.255.0
+ duplex auto
+!
+interface Ethernet0/1
+ ip address dhcp
+ shutdown
+ duplex auto
+!
+interface Ethernet0/2
+ ip address dhcp
+ shutdown
+ duplex auto
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+ duplex auto
+!
+router ospf 44
+ network 0.0.0.0 255.255.255.255 area 44
+!
+router ospf 1
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip ssh version 2
+ip ssh dh min size 4096
+!
+ipv6 ioam timestamp
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+parser view restricted
+ secret 5 $1$/u/p$bZ767JqGXxG616Z5GzKCC0
+ commands exec include terminal width
+ commands exec include terminal length
+ commands exec include terminal
+ commands exec include all show ip
+ commands exec include show version
+ commands exec include show
+ commands exec include logout
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ privilege level 15
+ transport input ssh
+!
+ntp server 8.8.8.8
+ntp server 55.66.77.88
+ntp server 1.1.1.1
+ntp server 44.55.66.77
+!
+end[0m
+[0m[1m[32m^^^^ END pull_show_run ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0m[1m[34m* R2 ** changed : False ********************************************************[0m
+[0m[1m[32mvvvv pull_show_run ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO[0m
+[0m[1m[32m---- send_command ** changed : False ------------------------------------------- INFO[0m
+[0mBuilding configuration...
+
+
+Current configuration : 2002 bytes
+!
+! Last configuration change at 17:26:06 UTC Fri Nov 5 2021 by usa
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$.tnj$OyBmRTJUAYeY3sjykTJA60
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip domain name automation
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username usa privilege 15 secret 5 $1$e9NC$HaWXIvD/kcVheqRQiBhYF0
+username vila privilege 15 secret 5 $1$VYhf$ivVqfvXA4LE5vDWQfFeNy0
+username jradmin privilege 15 view restricted secret 5 $1$bhHE$YFrz1Soq9qbKPiljvzRdB0
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description automation
+ no ip address
+!
+interface Ethernet0/0
+ description automation
+ ip address 192.168.146.42 255.255.255.0
+ duplex auto
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+ duplex auto
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+ duplex auto
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+ duplex auto
+!
+router ospf 44
+ network 0.0.0.0 255.255.255.255 area 44
+!
+router ospf 1
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip ssh version 2
+ip ssh dh min size 4096
+!
+ipv6 ioam timestamp
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+parser view restricted
+ secret 5 $1$Am.B$046uOu0JO3xLSbptbf7sg0
+ commands exec include terminal width
+ commands exec include terminal length
+ commands exec include terminal
+ commands exec include all show ip
+ commands exec include show version
+ commands exec include show
+ commands exec include logout
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ privilege level 15
+ transport input ssh
+!
+ntp server 8.8.8.8
+ntp server 55.66.77.88
+ntp server 10.10.10.10
+ntp server 44.55.66.77
+!
+end[0m
+[0m[1m[32m^^^^ END pull_show_run ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0m[1m[34m* R3 ** changed : False ********************************************************[0m
+[0m[1m[32mvvvv pull_show_run ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO[0m
+[0m[1m[32m---- send_command ** changed : False ------------------------------------------- INFO[0m
+[0mBuilding configuration...
+
+
+Current configuration : 2050 bytes
+!
+! Last configuration change at 17:26:06 UTC Fri Nov 5 2021 by euro
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$Txeu$ZTGIA31klVjCYMJpMJWG8/
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip domain name automation
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username euro privilege 15 secret 5 $1$X2Uo$TwVrt07OR/IPMJ8OuK.Uj/
+username vila privilege 15 secret 5 $1$uBXe$TzBEcS4IVm.E91.DrWqVg0
+username jradmin privilege 15 view restricted secret 5 $1$5X4v$fDrdDIAkqjw8WSO2ZZJE9/
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description automation
+ no ip address
+!
+interface Ethernet0/0
+ description automation
+ ip address 192.168.146.43 255.255.255.0
+ duplex auto
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+ duplex auto
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+ duplex auto
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+ duplex auto
+!
+router ospf 44
+ network 0.0.0.0 255.255.255.255 area 44
+!
+router ospf 1
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip ssh version 2
+ip ssh dh min size 4096
+!
+ipv6 ioam timestamp
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+parser view restricted
+ secret 5 $1$pbwk$h9JmfsUisus/U3CPYwGl41
+ commands exec include terminal width
+ commands exec include terminal length
+ commands exec include terminal
+ commands exec include all show ip
+ commands exec include show version
+ commands exec include show
+ commands exec include logout
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ privilege level 15
+ transport input ssh
+!
+ntp server 55.66.77.88
+ntp server 9.9.9.9
+ntp server 34.202.215.187
+ntp server 4.4.4.4
+ntp server 44.55.66.77
+ntp server pool.ntp.org
+!
+end[0m
+[0m[1m[32m^^^^ END pull_show_run ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0m[1m[34m* R4 ** changed : False ********************************************************[0m
+[0m[1m[32mvvvv pull_show_run ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO[0m
+[0m[1m[32m---- send_command ** changed : False ------------------------------------------- INFO[0m
+[0mBuilding configuration...
+
+Current configuration : 2024 bytes
+!
+! Last configuration change at 17:26:06 UTC Fri Nov 5 2021 by euro
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R4
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$RR9I$/D/8x1EGFEpfWxP7UNdjq/
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username euro privilege 15 secret 5 $1$QNyD$bJOMnr2l8vVc74rTWrFHS0
+username vila privilege 15 secret 5 $1$2Naq$Fg.TfWTJK5UbiGhaQ52A3.
+username jradmin privilege 15 view restricted secret 5 $1$FM/9$UC839GK.oZAlLKjq0kuS.0
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description automation
+ no ip address
+!
+interface Ethernet0/0
+ description automation
+ ip address 192.168.146.44 255.255.255.0
+ duplex auto
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+ duplex auto
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+ duplex auto
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+ duplex auto
+!
+router ospf 44
+ network 0.0.0.0 255.255.255.255 area 44
+!
+router ospf 1
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip ssh version 2
+ip ssh dh min size 4096
+!
+ipv6 ioam timestamp
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+parser view restricted
+ secret 5 $1$LUcp$nTnnmajE52GiUKeghb5lL/
+ commands exec include terminal width
+ commands exec include terminal length
+ commands exec include terminal
+ commands exec include all show ip
+ commands exec include show version
+ commands exec include show
+ commands exec include logout
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ privilege level 15
+ transport input ssh
+!
+ntp server 55.66.77.88
+ntp server 9.9.9.9
+ntp server 4.4.4.4
+ntp server 34.208.249.133
+ntp server 44.55.66.77
+ntp server pool.ntp.org
+!
+end[0m
+[0m[1m[32m^^^^ END pull_show_run ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0m
